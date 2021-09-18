@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style type="text/css">
+        body {
+            background: rgb(233, 232, 232);
+        }
+        .example-container {
+            width: 80%;
+            margin: 50px auto;
+        }
+        .example-container .card {
+            background: rgb(245, 243, 243);
+            padding: 20px 40px;
+            box-shadow: -10px -10px 10px #03A6A6, 10px 10px 10px #F24150;
+        }
+        .example-container p {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .example-container a {
+            font-family: "Montserrat", sans-serif;
+            display: inline-block;
+            text-transform: uppercase;
+            color: #03A6A6;
+            background: transparent;
+            text-decoration: none;
+            border: 2px solid;
+            padding: 10px 40px;
+            font-size: .8rem;
+            font-weight: 700;
+            -webkit-transition: 0.2s all;
+            transition: 0.2s all;
+        }
+        .example-container a:hover {
+            background: #03A6A6;
+            color: #fff;
+            text-decoration: none;
+        }
+        .example-container h1 {
+            display: block;
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>  
+</head>
+<body>
+    <div class="example-container">
+        <div class="card">
+            <h1>MOVBOOKS</h1>
+            <p>
+                Recientemente solicitó restablecer la contraseña de su cuenta de MovBooks. Haga clic en el botón de abajo para restablecerla.
+            </p>
+            <br/><hr/><br/>
+            <div style="text-align: center;">
+                <a href="http://localhost:8100/password-recovery/{token}">
+                    Recuperar contraseña
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
