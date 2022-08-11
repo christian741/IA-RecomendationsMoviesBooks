@@ -6,6 +6,5 @@ namespace MovBooks.Core.Entities
     {
         public string Email { get; set; }
         public string Token { get; set; }
-        public DateTime CreatedDate { get; set; } = DateTime.Now;
     }
 }

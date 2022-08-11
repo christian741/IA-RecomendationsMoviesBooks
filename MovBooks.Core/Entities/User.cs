@@ -12,6 +12,22 @@ namespace MovBooks.Core.Entities
             RatingsMovies = new HashSet<RatingMovie>();
         }
 
+        public User(string nickname, string email, string password, int roleId, string avatar, string image, bool enabled, DateTime registrationDate, Role role, ICollection<Pqr> pqrs, ICollection<RatingBook> ratingsBooks, ICollection<RatingMovie> ratingsMovies)
+        {
+            Nickname = nickname;
+            Email = email;
+            Password = password;
+            RoleId = roleId;
+            Avatar = avatar;
+            Image = image;
+            Enabled = enabled;
+            RegistrationDate = registrationDate;
+            Role = role;
+            Pqrs = pqrs;
+            RatingsBooks = ratingsBooks;
+            RatingsMovies = ratingsMovies;
+        }
+
         public string Nickname { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }

@@ -8,5 +8,6 @@ namespace MovBooks.Core.Interfaces
         Task<User> GetLoginByCredentials(UserLogin login);
         Task<User> FindByEmail(string email);
         Task<User> FindByNickname(string nickname);
+        Task<int> getCountUsers();
     }
 }

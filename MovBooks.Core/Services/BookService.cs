@@ -32,11 +32,6 @@ namespace MovBooks.Core.Services
                 books = books.Where(x => x.Title.ToLower().Contains(filters.Title.ToLower()));
             }
 
-            if (filters.Aggregated != null)
-            {
-                books = books.Where(x => x.Aggregated == filters.Aggregated);
-            }
-
             // La paginación se hace después de que los filtros sean aplicados
             var pagedList = PagedList<Book>.Create(books, filters.PageNumber, filters.PageSize);
 

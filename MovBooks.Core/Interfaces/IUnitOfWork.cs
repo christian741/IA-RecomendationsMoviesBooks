@@ -23,13 +23,7 @@ namespace MovBooks.Core.Interfaces
         IPqrRepository PqrRepository { get; }
         IParameterRepository ParameterRepository { get; }
         IGenderRepository GenderRepository { get; }
-
-
-
-
-
-
-
+        IRecomenderRepository RecomenderRepository { get; }
 
        
         //Metodos

@@ -45,6 +45,12 @@ namespace MovBooks.Infrastructure.Data.Configurations
             builder.Property(x => x.RegistrationDate)
                 .HasColumnName("registration_date");
 
+            builder.Property(x => x.CreatedAt)
+                .HasColumnName("created_at");
+
+            builder.Property(x => x.UpdatedAt)
+                .HasColumnName("updated_at");
+
             // Relationship
             builder.HasOne(x => x.Role)
                 .WithMany(z => z.Users)

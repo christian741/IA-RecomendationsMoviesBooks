@@ -6,13 +6,11 @@ namespace MovBooks.Core.Entities
 {
     public class Gender : BaseEntity
     {
-      
+
+        public Gender()
+        {
+        }
+
         public string Name { get; set; }
-        //public string Description { get; set; }
-        //public bool Enabled { get; set; }
-        public DateTime CreatedDate { get; set; } = DateTime.Now;
- 
-
-
     }
 }

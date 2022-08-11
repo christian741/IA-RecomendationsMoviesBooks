@@ -51,7 +51,6 @@ namespace MovBooks.Core.Services
 
         public async Task<bool> Update(Pqr pqr)
         {
-            pqr.Answered = !string.IsNullOrEmpty(pqr.Answer);
             _unitOfWork.PqrRepository.Update(pqr);
             await _unitOfWork.SaveChangesAsync();
             return true;
