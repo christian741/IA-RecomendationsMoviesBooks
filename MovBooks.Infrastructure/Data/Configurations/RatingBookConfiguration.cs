@@ -32,17 +32,23 @@ namespace MovBooks.Infrastructure.Data.Configurations
             builder.Property(x => x.Comment)
                 .HasColumnName("comment");
 
+            builder.Property(x => x.CreatedAt)
+                .HasColumnName("created_at");
+
+            builder.Property(x => x.UpdatedAt)
+                .HasColumnName("updated_at");
+
             // Relationship
             builder.HasOne(x => x.User)
                 .WithMany(z => z.RatingsBooks)
                 .HasForeignKey(x => x.UserId)
-                .HasConstraintName("fk_users")
+                .HasConstraintName("fk_rating_user_id")
                 .OnDelete(DeleteBehavior.ClientCascade);
 
             builder.HasOne(x => x.Book)
                 .WithMany(z => z.RatingsBooks)
                 .HasForeignKey(x => x.BookId)
-                .HasConstraintName("fk_books")
+                .HasConstraintName("fk_rating_book_id")
                 .OnDelete(DeleteBehavior.ClientCascade);
         }
     }

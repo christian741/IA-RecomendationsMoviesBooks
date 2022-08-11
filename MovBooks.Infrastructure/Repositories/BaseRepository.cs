@@ -10,7 +10,7 @@ namespace MovBooks.Infrastructure.Repositories
 {
     public class BaseRepository<T> : IRepository<T> where T : BaseEntity
     {
-        private readonly MovBooksContext _context;
+        protected readonly MovBooksContext _context;
         protected readonly DbSet<T> _entities;
 
         public BaseRepository(MovBooksContext context)

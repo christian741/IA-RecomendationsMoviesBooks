@@ -18,6 +18,12 @@ namespace MovBooks.Infrastructure.Data.Configurations
                 .HasColumnName("name")
                 .IsRequired()
                 .HasMaxLength(50);
+
+            builder.Property(x => x.CreatedAt)
+               .HasColumnName("created_at");
+
+            builder.Property(x => x.UpdatedAt)
+                .HasColumnName("updated_at");
         }
     }
 }

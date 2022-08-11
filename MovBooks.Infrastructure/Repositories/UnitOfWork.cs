@@ -21,6 +21,7 @@ namespace MovBooks.Infrastructure.Repositories
         private readonly IRatingBookRepository _ratingBookRepository;
         private readonly IRatingMovieRepository _ratingMovieRepository;
         private readonly IPasswordRecoveryRepository _passwordRecoveryRepository;
+        private readonly IRecomenderRepository _recomenderRepository;
 
         public UnitOfWork(MovBooksContext context)
         {
@@ -36,15 +37,15 @@ namespace MovBooks.Infrastructure.Repositories
         public IRatingBookRepository RatingBookRepository => _ratingBookRepository ?? new RatingBookRepository(_context);
         public IRatingMovieRepository RatingMovieRepository => _ratingMovieRepository ?? new RatingMovieRepository(_context);
         public IPasswordRecoveryRepository PasswordRecoveryRepository => _passwordRecoveryRepository ?? new PasswordRecoveryRepository(_context);
-
         public IGenderRepository GenderRepository => _genderRepository ?? new GenderRepository(_context);
+        public IRecomenderRepository RecomenderRepository => _recomenderRepository ?? new RecomenderRepository(_context);
 
         public void SaveChanges()
         {
             _context.SaveChanges();
         }
 
-        public async Task SaveChangesAsync()
+        public  async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();
         }

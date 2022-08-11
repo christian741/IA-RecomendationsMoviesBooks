@@ -70,7 +70,7 @@ namespace MovBooks.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> saveGender(GenderDto genderDto)
         {
-           
+
             var gender = _mapper.Map<Gender>(genderDto);
             await _genderService.Insert(gender);
 

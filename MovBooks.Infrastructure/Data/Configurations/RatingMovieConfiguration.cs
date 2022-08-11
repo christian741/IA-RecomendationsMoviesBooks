@@ -32,6 +32,12 @@ namespace MovBooks.Infrastructure.Data.Configurations
             builder.Property(x => x.Comment)
                 .HasColumnName("comment");
 
+            builder.Property(x => x.CreatedAt)
+                .HasColumnName("created_at");
+
+            builder.Property(x => x.UpdatedAt)
+                .HasColumnName("updated_at");
+
             // Relationship
             builder.HasOne(x => x.User)
                 .WithMany(z => z.RatingsMovies)

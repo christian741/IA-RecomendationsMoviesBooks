@@ -1,3 +1,4 @@
+
 using System;
 using System.Text;
 using AutoMapper;
@@ -5,11 +6,13 @@ using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using MovBooks.Api.Models;
+using MovBooks.Infrastructure.Data;
 using MovBooks.Infrastructure.Extensions;
 using MovBooks.Infrastructure.Filters;
 using Newtonsoft.Json;
@@ -55,8 +58,12 @@ namespace MovBooks.Api
             // Configure Options
             services.AddOptions(Configuration);
 
-            // DbContext
-            services.AddDbContexts(Configuration);
+            services.AddDbContext<MovBooksContext>(
+                options =>
+                {
+                    options.UseNpgsql(Configuration.GetConnectionString("MovBooks"));
+                }
+            );
 
             // Services
             services.AddServices();

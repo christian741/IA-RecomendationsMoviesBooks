@@ -18,12 +18,6 @@ namespace MovBooks.Infrastructure.Data.Configurations
                 .HasColumnName("description")
                 .IsRequired();
 
-            builder.Property(x => x.CreatedDate)
-                .HasColumnName("created_date");
-
-            builder.Property(x => x.Answered)
-                .HasColumnName("answered");
-
             builder.Property(x => x.UserId)
                 .HasColumnName("user_id")
                 .IsRequired();
@@ -32,8 +26,11 @@ namespace MovBooks.Infrastructure.Data.Configurations
                 .HasColumnName("answer")
                 .HasMaxLength(255);
 
-            builder.Property(x => x.CreatedDate)
-               .HasColumnName("created_date");
+            builder.Property(x => x.CreatedAt)
+                .HasColumnName("created_at");
+
+            builder.Property(x => x.UpdatedAt)
+                .HasColumnName("updated_at");
 
             // Relationship
             builder.HasOne(x => x.User)

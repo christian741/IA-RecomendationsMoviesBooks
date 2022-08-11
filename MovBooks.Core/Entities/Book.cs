@@ -11,7 +11,6 @@ namespace MovBooks.Core.Entities
 
         public string Title { get; set; }
         public string Description { get; set; }
-        public bool Aggregated { get; set; }
 
         public virtual ICollection<RatingBook> RatingsBooks { get; set; }
     }

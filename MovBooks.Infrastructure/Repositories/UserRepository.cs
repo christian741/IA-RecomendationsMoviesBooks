@@ -25,5 +25,10 @@ namespace MovBooks.Infrastructure.Repositories
         {
             return await _entities.FirstOrDefaultAsync(x => x.Nickname.ToLower() == nickname.ToLower());
         }
+
+        public async Task<int> getCountUsers()
+        {
+            return await _entities.CountAsync();
+        }
     }
 }
