@@ -9,8 +9,16 @@ namespace MovBooks.Core.Entities
 
         public Gender()
         {
+            GenderMovies = new HashSet<GenderMovies>();
+            GenderBooks = new HashSet<GenderBooks>();
         }
 
         public string Name { get; set; }
+
+        public virtual ICollection<GenderBooks> GenderBooks { get; set; }
+
+        public virtual ICollection<GenderMovies> GenderMovies { get; set; }
+
+
     }
 }
