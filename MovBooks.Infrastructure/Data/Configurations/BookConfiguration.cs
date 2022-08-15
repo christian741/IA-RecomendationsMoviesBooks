@@ -19,6 +19,8 @@ namespace MovBooks.Infrastructure.Data.Configurations
                 .IsRequired()
                 .HasMaxLength(255);
 
+            builder.HasIndex(x => x.Title);
+
             builder.Property(x => x.Description)
                 .HasColumnName("description");
 
