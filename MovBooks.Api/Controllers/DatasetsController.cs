@@ -6,6 +6,7 @@ using MovBooks.Core.Entities;
 using System.Threading.Tasks;
 using System.Data;
 using LumenWorks.Framework.IO.Csv;
+using MovBooks.Infrastructure.Interfaces;
 
 namespace MovBooks.Api.Controllers
 {
@@ -15,12 +16,17 @@ namespace MovBooks.Api.Controllers
     {
         private readonly IBookService _bookService;
         private readonly IMovieService _movieService;
+        private readonly IApiMovieDb _apiMovieDb;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public DatasetsController(IBookService bookService, IMovieService movieService, IWebHostEnvironment webHostEnvironment)
+        public DatasetsController(
+            IBookService bookService, 
+            IMovieService movieService,IApiMovieDb apiMovieDb,
+            IWebHostEnvironment webHostEnvironment)
         {
             _bookService = bookService;
             _movieService = movieService;
+            _apiMovieDb = apiMovieDb;
             _webHostEnvironment = webHostEnvironment;
         }
 
@@ -59,6 +65,15 @@ namespace MovBooks.Api.Controllers
                     await _movieService.Insert(movie);
                 }
             }
+            return Ok();
+        }
+
+
+        [HttpGet]
+        [Route("movies/genders")]
+        public async Task<IActionResult> LoadGenderMovies()
+        {
+            await _apiMovieDb.GetGenresApiMovie();
             return Ok();
         }
     }
