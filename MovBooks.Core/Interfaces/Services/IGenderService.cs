@@ -10,7 +10,7 @@ namespace MovBooks.Core.Interfaces.Services
 
         PagedList<Gender> GetAll(GenderQueryFilter filters);
         Task<Gender> GetById(int id);
-        Task Insert(Gender gender);
+        Task Insert(Gender gender, int? id, string? type);
         Task<bool> Update(Gender gender);
         Task<bool> Delete(int id);
 

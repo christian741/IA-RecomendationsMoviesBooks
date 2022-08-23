@@ -35,21 +35,25 @@ namespace MovBooks.Infrastructure.Extensions
             return services;
         }
 
+        /**
+         * Options pattern
+         */
         public static IServiceCollection AddOptions(this IServiceCollection services, IConfiguration configuration)
         {
             // Configurar Pagination Options
             // Configure crea un Singleton, entonces es como un dependency injection con el mapeo
             services.Configure<PaginationOptions>(options => configuration.GetSection("Pagination").Bind(options));
+            services.Configure<TheMovieOptions>(options => configuration.GetSection("TheMovie").Bind(options));
 
             return services;
         }
 
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
-            // Resolver dependencia Scoped para el Generic Repository
+            // Solve dependency Scoped to the Generic Repository
             services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
 
-            // Resolver dependencia para la unidad de trabajo
+            // Solve dependency to unit of work
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             // Servicios Core
@@ -64,8 +68,12 @@ namespace MovBooks.Infrastructure.Extensions
             services.AddTransient<IRatingMovieService, RatingMovieService>();
             services.AddTransient<IPasswordRecoveryService, PasswordRecoveryService>();
 
-            // Servicios Infrastructure
+            // External Services
+            services.AddTransient<IApiMovieDb, ApiMovieDbService>();
+
+            // Services Infrastructure
             services.AddTransient<IMailService, MailService>();
+            
 
             return services;
         }

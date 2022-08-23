@@ -20,8 +20,14 @@ namespace MovBooks.Infrastructure.Data.Configurations
             builder.Property(x => x.Name)
                 .HasColumnName("name")
                 .IsRequired()
-                .IsUnicode(true)
                 .HasMaxLength(255);
+
+            builder.HasIndex(x => x.Name)
+                .IsUnique();
+
+            builder.Property(x => x.IdApi)
+                .HasColumnName("id_api");
+
 
             builder.Property(x => x.CreatedAt)
                 .HasColumnName("created_at");

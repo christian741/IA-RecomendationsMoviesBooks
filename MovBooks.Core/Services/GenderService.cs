@@ -4,6 +4,7 @@ using MovBooks.Core.Entities;
 using MovBooks.Core.Interfaces;
 using MovBooks.Core.Interfaces.Services;
 using MovBooks.Core.QueryFilters;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -50,10 +51,24 @@ namespace MovBooks.Core.Services
             return await _unitOfWork.GenderRepository.GetById(id);
         }
 
-        public async Task Insert(Gender gender)
+        public async Task Insert(Gender gender,int? id, string? type)
         {
-            await _unitOfWork.GenderRepository.Add(gender);
-            await _unitOfWork.SaveChangesAsync();
+            var nameGender = _unitOfWork.GenderRepository.FindByName(gender.Name);
+            if (nameGender.Result == null){
+                await _unitOfWork.GenderRepository.Add(gender);
+                await _unitOfWork.SaveChangesAsync();
+                return;
+            }
+
+            if(type == "book" && id > 0)
+            {
+                await _unitOfWork.GenderRepository.saveGenderBooks(nameGender.Result, _unitOfWork.BookRepository.GetById((int)id).Result);
+            }
+
+            if(type == "movie" && id > 0)
+            {
+                await _unitOfWork.GenderRepository.saveGenderMovies(nameGender.Result, _unitOfWork.MovieRepository.GetById((int)id).Result);
+            }
         }
 
         public async Task<bool> Update(Gender gender)

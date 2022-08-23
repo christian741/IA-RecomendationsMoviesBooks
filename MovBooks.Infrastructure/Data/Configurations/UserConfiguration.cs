@@ -19,10 +19,14 @@ namespace MovBooks.Infrastructure.Data.Configurations
                 .IsRequired()
                 .HasMaxLength(50);
 
+            builder.HasIndex(x => x.Nickname);
+
             builder.Property(x => x.Email)
                 .HasColumnName("email")
                 .IsRequired()
                 .HasMaxLength(50);
+
+            builder.HasIndex(x => x.Email);
 
             builder.Property(x => x.Password)
                 .HasColumnName("password")

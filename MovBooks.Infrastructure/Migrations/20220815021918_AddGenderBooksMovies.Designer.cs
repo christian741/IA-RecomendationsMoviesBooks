@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MovBooks.Infrastructure.Data;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -9,9 +10,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MovBooks.Infrastructure.Migrations
 {
     [DbContext(typeof(MovBooksContext))]
-    partial class MovBooksContextModelSnapshot : ModelSnapshot
+    [Migration("20220815021918_AddGenderBooksMovies")]
+    partial class AddGenderBooksMovies
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,8 +49,6 @@ namespace MovBooks.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Title");
-
                     b.ToTable("books", "books");
                 });
 
@@ -64,13 +64,10 @@ namespace MovBooks.Infrastructure.Migrations
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("created_at");
 
-                    b.Property<int?>("IdApi")
-                        .HasColumnType("integer")
-                        .HasColumnName("id_api");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(255)
+                        .IsUnicode(true)
                         .HasColumnType("character varying(255)")
                         .HasColumnName("name");
 
@@ -79,9 +76,6 @@ namespace MovBooks.Infrastructure.Migrations
                         .HasColumnName("updated_at");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
 
                     b.ToTable("gender", "config");
                 });
@@ -183,8 +177,6 @@ namespace MovBooks.Infrastructure.Migrations
                         .HasColumnName("updated_at");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Title");
 
                     b.ToTable("movies", "movies");
                 });
@@ -413,16 +405,16 @@ namespace MovBooks.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2022, 8, 22, 22, 8, 25, 87, DateTimeKind.Local).AddTicks(5908),
+                            CreatedAt = new DateTime(2022, 8, 14, 21, 19, 18, 361, DateTimeKind.Local).AddTicks(7499),
                             Name = "Admin",
-                            UpdatedAt = new DateTime(2022, 8, 22, 22, 8, 25, 87, DateTimeKind.Local).AddTicks(8446)
+                            UpdatedAt = new DateTime(2022, 8, 14, 21, 19, 18, 361, DateTimeKind.Local).AddTicks(8782)
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2022, 8, 22, 22, 8, 25, 90, DateTimeKind.Local).AddTicks(6324),
+                            CreatedAt = new DateTime(2022, 8, 14, 21, 19, 18, 362, DateTimeKind.Local).AddTicks(8986),
                             Name = "User",
-                            UpdatedAt = new DateTime(2022, 8, 22, 22, 8, 25, 90, DateTimeKind.Local).AddTicks(6381)
+                            UpdatedAt = new DateTime(2022, 8, 14, 21, 19, 18, 362, DateTimeKind.Local).AddTicks(9008)
                         });
                 });
 
@@ -482,10 +474,6 @@ namespace MovBooks.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Email");
-
-                    b.HasIndex("Nickname");
-
                     b.HasIndex("RoleId");
 
                     b.ToTable("users", "users");
@@ -494,14 +482,14 @@ namespace MovBooks.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2022, 8, 22, 22, 8, 25, 91, DateTimeKind.Local).AddTicks(6316),
+                            CreatedAt = new DateTime(2022, 8, 14, 21, 19, 18, 363, DateTimeKind.Local).AddTicks(3055),
                             Email = "admin@movbooks.com",
                             Enabled = true,
                             Nickname = "AdminMovbooks",
                             Password = "12345678",
-                            RegistrationDate = new DateTime(2022, 8, 22, 22, 8, 25, 91, DateTimeKind.Local).AddTicks(1260),
+                            RegistrationDate = new DateTime(2022, 8, 14, 21, 19, 18, 363, DateTimeKind.Local).AddTicks(811),
                             RoleId = 1,
-                            UpdatedAt = new DateTime(2022, 8, 22, 22, 8, 25, 91, DateTimeKind.Local).AddTicks(6328)
+                            UpdatedAt = new DateTime(2022, 8, 14, 21, 19, 18, 363, DateTimeKind.Local).AddTicks(3060)
                         });
                 });
 
