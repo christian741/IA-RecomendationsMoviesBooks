@@ -14,6 +14,7 @@ namespace MovBooks.Core.Entities
         }
 
         public string Name { get; set; }
+        public int? IdApi { get; set; }
 
         public virtual ICollection<GenderBooks> GenderBooks { get; set; }
 

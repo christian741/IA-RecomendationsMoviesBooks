@@ -9,6 +9,7 @@ namespace MovBooks.Core.Entities
         public GenderBooks()
         {
         }
+
         public int IdGender { get; set; }
         public int IdBook { get; set; }
         public virtual Gender Gender { get; set; }

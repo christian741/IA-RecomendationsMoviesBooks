@@ -25,6 +25,10 @@ namespace MovBooks.Infrastructure.Data.Configurations
             builder.HasIndex(x => x.Name)
                 .IsUnique();
 
+            builder.Property(x => x.IdApi)
+                .HasColumnName("id_api");
+
+
             builder.Property(x => x.CreatedAt)
                 .HasColumnName("created_at");
 
