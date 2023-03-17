@@ -1,19 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30621.155
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovBooks.Api", "MovBooks.Api\MovBooks.Api.csproj", "{79C3E9FC-B5D8-4E11-B823-FA6A9D1D39F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovBooks.Api", "MovBooks.Api\MovBooks.Api.csproj", "{79C3E9FC-B5D8-4E11-B823-FA6A9D1D39F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovBooks.Core", "MovBooks.Core\MovBooks.Core.csproj", "{0FD0C66C-1F3D-46B4-92D9-DA83BFD50AFE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovBooks.Core", "MovBooks.Core\MovBooks.Core.csproj", "{0FD0C66C-1F3D-46B4-92D9-DA83BFD50AFE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovBooks.Infrastructure", "MovBooks.Infrastructure\MovBooks.Infrastructure.csproj", "{195F2CE0-D3E4-4B8C-B0E7-0F1E5E2CBF87}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovBooks.Infrastructure", "MovBooks.Infrastructure\MovBooks.Infrastructure.csproj", "{195F2CE0-D3E4-4B8C-B0E7-0F1E5E2CBF87}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{23683772-6B38-40A9-9543-3A0746BF8376}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovBooks.UnitTests", "MovBooks.UnitTests\MovBooks.UnitTests.csproj", "{C319F3F9-2249-440D-8E8E-A42FBB057168}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovBooks.UnitTests", "MovBooks.UnitTests\MovBooks.UnitTests.csproj", "{C319F3F9-2249-440D-8E8E-A42FBB057168}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovBooks.IntegrationTests", "MovBooks.IntegrationTests\MovBooks.IntegrationTests.csproj", "{D01A9ED6-30DD-4569-9B68-2213D30AE26B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovBooks.IntegrationTests", "MovBooks.IntegrationTests\MovBooks.IntegrationTests.csproj", "{D01A9ED6-30DD-4569-9B68-2213D30AE26B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

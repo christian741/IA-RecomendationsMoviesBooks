@@ -1,14 +1,18 @@
-﻿using System.Collections.Generic;
+﻿
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 using MovBooks.Api.Models;
 using MovBooks.Api.Responses;
 using MovBooks.Core.CustomEntities;
 using MovBooks.Core.DTOs;
 using MovBooks.Core.Entities;
 using MovBooks.Core.Interfaces;
+using MovBooks.Core.Jobs.Interfaces;
 using MovBooks.Core.QueryFilters;
 using Newtonsoft.Json;
 
@@ -21,11 +25,13 @@ namespace MovBooks.Api.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
+        private IBackgroundTaskQueue _queue;
 
-        public UsersController(IUserService userService, IMapper mapper)
+        public UsersController(IMapper mapper, IUserService userService, IBackgroundTaskQueue queue)
         {
             _mapper = mapper;
             _userService = userService;
+            _queue = queue;
         }
 
         [HttpGet]
@@ -127,6 +133,22 @@ namespace MovBooks.Api.Controllers
             var userDto = _mapper.Map<UserDto>(user);
             var response = new ApiResponse<UserDto>(userDto);
             return Ok(response);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        [Route("generateFakeData/{quantityUsers}")]
+        public async Task<IActionResult> GenerateDataFakeAsync(int? quantityUsers)
+        {
+            _ = _queue.QueueBackgroundWorkItemAsync(async (token) => {
+                if (quantityUsers == null)
+                {
+                   quantityUsers = 100;
+                }
+                await _userService.GenerateDataFakeAsync((int)quantityUsers);
+
+            });
+            return Ok("In progress..");
         }
     }
 }

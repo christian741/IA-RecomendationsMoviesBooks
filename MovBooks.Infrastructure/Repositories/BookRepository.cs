@@ -3,6 +3,7 @@ using MovBooks.Core.Interfaces;
 using MovBooks.Infrastructure.Data;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace MovBooks.Infrastructure.Repositories
 {
@@ -15,6 +16,11 @@ namespace MovBooks.Infrastructure.Repositories
             var book = await _entities
                     .FirstOrDefaultAsync(x => (id == null || x.Id != id) && x.Title.ToLower() == title.ToLower());
             return book;
+        }
+
+        public IEnumerable<RatingBook> GetRaingsBooks()
+        {
+            return (IEnumerable<RatingBook>)(_context.RatingsBooks.AsAsyncEnumerable());
         }
     }
 }

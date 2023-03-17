@@ -10,9 +10,11 @@ namespace MovBooks.Core.Entities
             Pqrs = new HashSet<Pqr>();
             RatingsBooks = new HashSet<RatingBook>();
             RatingsMovies = new HashSet<RatingMovie>();
+            ViewsBooks = new HashSet<ViewsBooks>();
+            ViewsMovies = new HashSet<ViewsMovies>();
         }
 
-        public User(string nickname, string email, string password, int roleId, string avatar, string image, bool enabled, DateTime registrationDate, Role role, ICollection<Pqr> pqrs, ICollection<RatingBook> ratingsBooks, ICollection<RatingMovie> ratingsMovies)
+        public User(string nickname, string email, string password, int roleId, string avatar, string image, bool enabled, DateTime registrationDate, Role role, ICollection<Pqr> pqrs, ICollection<RatingBook> ratingsBooks, ICollection<RatingMovie> ratingsMovies, ICollection<ViewsBooks> viewsBooks, ICollection<ViewsMovies> viewsMovies)
         {
             Nickname = nickname;
             Email = email;
@@ -26,6 +28,8 @@ namespace MovBooks.Core.Entities
             Pqrs = pqrs;
             RatingsBooks = ratingsBooks;
             RatingsMovies = ratingsMovies;
+            ViewsBooks = viewsBooks;
+            ViewsMovies = viewsMovies;
         }
 
         public string Nickname { get; set; }
@@ -40,5 +44,7 @@ namespace MovBooks.Core.Entities
         public virtual ICollection<Pqr> Pqrs { get; set; }
         public virtual ICollection<RatingBook> RatingsBooks { get; set; }
         public virtual ICollection<RatingMovie> RatingsMovies { get; set; }
+        public virtual ICollection<ViewsBooks> ViewsBooks { get; set; }
+        public virtual ICollection<ViewsMovies> ViewsMovies { get; set; }
     }
 }

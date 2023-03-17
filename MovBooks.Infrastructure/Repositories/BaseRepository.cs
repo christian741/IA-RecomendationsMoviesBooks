@@ -44,5 +44,10 @@ namespace MovBooks.Infrastructure.Repositories
             T entity = await GetById(id);
             _entities.Remove(entity);
         }
+
+        public Task<int> GetCountAll()
+        {
+            return _entities.CountAsync();
+        }
     }
 }
