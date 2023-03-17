@@ -15,5 +15,8 @@ namespace MovBooks.Core.Interfaces
         Task<User> GetLoginByCredentials(UserLogin login);
         Task<User> FindByEmail(string email);
         Task<User> FindByNickname(string nickname);
+        Task GenerateDataFakeAsync(int quantityUsers);
+        PagedList<Movie> GetProfileWatchedMovies(MovieQueryFilter filters,int idUser);
+        PagedList<Book> GetProfileWatchedBooks(BookQueryFilter filters, int idUser);
     }
 }

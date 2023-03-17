@@ -2,5 +2,7 @@
 {
     public class UserQueryFilter : BaseQueryFilter
     {
+        public string Email { get; set; }
+        public string Nickname { get; set; }
     }
 }

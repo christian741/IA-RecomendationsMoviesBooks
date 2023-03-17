@@ -10,12 +10,16 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.ML;
 using Microsoft.IdentityModel.Tokens;
 using MovBooks.Api.Models;
+using MovBooks.Core.DataStructures;
+using MovBooks.Core.Exceptions;
 using MovBooks.Infrastructure.Data;
 using MovBooks.Infrastructure.Extensions;
 using MovBooks.Infrastructure.Filters;
 using Newtonsoft.Json;
+using Serilog;
 
 namespace MovBooks.Api
 {
@@ -68,6 +72,8 @@ namespace MovBooks.Api
             // Services
             services.AddServices();
 
+            services.AddTransient<HandlerExceptionMiddleware>();
+
             // Authentication con JWT (agregar antes de MVC por el Middleware)
             services.AddAuthentication(options =>
             {
@@ -103,14 +109,21 @@ namespace MovBooks.Api
                 config.AddPolicy(Policies.Admin, Policies.AdminPolicy());
                 config.AddPolicy(Policies.User, Policies.UserPolicy());
             });
+
+            // IA
+            services.AddPredictionEnginePool<MovieRating, MovieRatingPrediction>().FromFile(Configuration["MLModelPath"]);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
+           if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseHsts();
             }
 
             app.UseHttpsRedirection();
@@ -131,6 +144,8 @@ namespace MovBooks.Api
             {
                 endpoints.MapControllers();
             });
+
+            app.UseMiddleware<HandlerExceptionMiddleware>();
         }
     }
 }

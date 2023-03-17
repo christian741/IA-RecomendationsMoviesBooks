@@ -1,13 +1,20 @@
 ﻿using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.ML;
+using Microsoft.ML;
 using MovBooks.Api.Responses;
 using MovBooks.Core.CustomEntities;
+using MovBooks.Core.DataStructures;
 using MovBooks.Core.DTOs;
 using MovBooks.Core.Entities;
 using MovBooks.Core.Interfaces;
+using MovBooks.Core.Jobs.Interfaces;
 using MovBooks.Core.QueryFilters;
 using Newtonsoft.Json;
 
@@ -19,13 +26,24 @@ namespace MovBooks.Api.Controllers
     public class MoviesController : ControllerBase
     {
         private readonly IMovieService _movieService;
+        private readonly IUserService _userService;
+        private readonly IHttpContextAccessor _haccess;
         private readonly IMapper _mapper;
+        private readonly ILogger<MoviesController> _logger;
+        private IBackgroundTaskQueue _queue;
 
-        public MoviesController(IMovieService movieService, IMapper mapper)
+        public MoviesController(IMovieService movieService, IUserService userService, IHttpContextAccessor haccess, IMapper mapper, ILogger<MoviesController> logger, IBackgroundTaskQueue queue)
         {
-            _mapper = mapper;
             _movieService = movieService;
+            _userService = userService;
+            _haccess = haccess;
+            _mapper = mapper;
+            _logger = logger;
+            _queue = queue;
         }
+
+
+
 
         // GET: api/Movies
         [HttpGet]
@@ -112,6 +130,59 @@ namespace MovBooks.Api.Controllers
             var movieDto = _mapper.Map<MovieDto>(movie);
             var response = new ApiResponse<MovieDto>(movieDto);
             return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("getRecommendMovieUser/{userId}")]
+        public ActionResult getRecommendMovieUser([FromQuery] MovieQueryFilter filters, int userId)
+        {
+
+            var claimsIdentity = _haccess.HttpContext.User.Identity as ClaimsIdentity;
+            var userClaim = claimsIdentity.FindFirst("user");
+            var user = JsonConvert.DeserializeObject<User>(userClaim.Value);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+            // 1. Create the ML.NET environment and load the already trained model
+            MLContext mlContext = new MLContext();
+            return NotFound();
+            /* List<(int movieId, float normalizedScore)> ratings = new List<(int movieId, float normalizedScore)>();
+             var MovieRatings = _userService.GetProfileWatchedMovies(filters,id);
+             List<Movie> WatchedMovies = new List<Movie>();
+
+             foreach ((int movieId, int movieRating) in MovieRatings)
+             {
+                 WatchedMovies.Add(_movieService.GetById(movieId));
+             }
+
+             return Ok();*/
+
+            /*
+
+            MovieRatingPrediction prediction = null;
+            foreach (var movie in _movieService.GetTrendingMovies)
+            {
+                // Call the Rating Prediction for each movie prediction
+                prediction = _model.Predict(new MovieRating
+                {
+                    userId = id.ToString(),
+                    movieId = movie.MovieID.ToString()
+                });
+
+                // Normalize the prediction scores for the "ratings" b/w 0 - 100
+                float normalizedscore = Sigmoid(prediction.Score);
+
+                // Add the score for recommendation of each movie in the trending movie list
+                ratings.Add((movie.MovieID, normalizedscore));
+            }
+
+            //3. Provide rating predictions to the view to be displayed
+            ViewData["watchedmovies"] = WatchedMovies;
+            ViewData["ratings"] = ratings;
+            ViewData["trendingmovies"] = _movieService.GetTrendingMovies;
+            return View(activeprofile);*/
         }
     }
 }

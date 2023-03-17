@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MovBooks.Core.CustomEntities;
@@ -73,7 +74,7 @@ namespace MovBooks.Infrastructure.Extensions
 
             // Services Infrastructure
             services.AddTransient<IMailService, MailService>();
-            
+
 
             return services;
         }

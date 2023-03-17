@@ -10,5 +10,11 @@ namespace MovBooks.Core.Entities
         {
 
         }
+
+        public int UserId { get; set; }
+        public int BookId { get; set; }
+        public Int64 Views { get; set; }
+        public virtual User User { get; set; }
+        public virtual Book Book { get; set; }
     }
 }
