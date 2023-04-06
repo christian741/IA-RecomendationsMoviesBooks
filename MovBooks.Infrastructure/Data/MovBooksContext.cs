@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore.Design;
 using MovBooks.Core.Entities;
 using System;
-using System.Reflection;
 using System.Data;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace MovBooks.Infrastructure.Data
@@ -57,7 +57,7 @@ namespace MovBooks.Infrastructure.Data
             public MovBooksContext CreateDbContext(string[] args)
             {
                 var optionsBuilder = new DbContextOptionsBuilder<MovBooksContext>();
-                optionsBuilder.UseNpgsql("Server=localhost; User Id=postgres; Password=!!Postgres123!!; Port=5432; Database=movbooks;");
+                optionsBuilder.UseNpgsql("Server=localhost; User Id=postgres; Password=postgres123; Port=5432; Database=movbooks;");
                 return new MovBooksContext(optionsBuilder.Options);
             }
 
@@ -88,7 +88,7 @@ namespace MovBooks.Infrastructure.Data
 
             foreach (var entity in entities)
             {
-                var now = DateTime.UtcNow; 
+                var now = DateTime.UtcNow;
 
                 if (entity.State == EntityState.Added)
                 {

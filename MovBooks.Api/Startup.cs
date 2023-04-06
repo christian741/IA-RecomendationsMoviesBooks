@@ -1,6 +1,4 @@
 
-using System;
-using System.Text;
 using AutoMapper;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -14,12 +12,12 @@ using Microsoft.Extensions.ML;
 using Microsoft.IdentityModel.Tokens;
 using MovBooks.Api.Models;
 using MovBooks.Core.DataStructures;
-using MovBooks.Core.Exceptions;
 using MovBooks.Infrastructure.Data;
 using MovBooks.Infrastructure.Extensions;
 using MovBooks.Infrastructure.Filters;
 using Newtonsoft.Json;
-using Serilog;
+using System;
+using System.Text;
 
 namespace MovBooks.Api
 {
@@ -72,7 +70,7 @@ namespace MovBooks.Api
             // Services
             services.AddServices();
 
-            services.AddTransient<HandlerExceptionMiddleware>();
+            //services.AddTransient<HandlerExceptionMiddleware>();
 
             // Authentication con JWT (agregar antes de MVC por el Middleware)
             services.AddAuthentication(options =>
@@ -105,7 +103,8 @@ namespace MovBooks.Api
             });
 
             // Authorization Roles
-            services.AddAuthorization(config => {
+            services.AddAuthorization(config =>
+            {
                 config.AddPolicy(Policies.Admin, Policies.AdminPolicy());
                 config.AddPolicy(Policies.User, Policies.UserPolicy());
             });
@@ -117,13 +116,10 @@ namespace MovBooks.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-           if (env.IsDevelopment())
+
+            if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseHsts();
             }
 
             app.UseHttpsRedirection();
@@ -145,7 +141,7 @@ namespace MovBooks.Api
                 endpoints.MapControllers();
             });
 
-            app.UseMiddleware<HandlerExceptionMiddleware>();
+            //app.UseMiddleware<HandlerExceptionMiddleware>();
         }
     }
 }
