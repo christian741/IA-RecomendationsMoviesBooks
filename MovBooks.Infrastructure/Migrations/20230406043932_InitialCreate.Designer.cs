@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MovBooks.Infrastructure.Migrations
 {
     [DbContext(typeof(MovBooksContext))]
-    [Migration("20220811033131_AddEntities")]
-    partial class AddEntities
+    [Migration("20230406043932_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -49,6 +49,8 @@ namespace MovBooks.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Title");
+
                     b.ToTable("books", "books");
                 });
 
@@ -64,10 +66,13 @@ namespace MovBooks.Infrastructure.Migrations
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("created_at");
 
+                    b.Property<int?>("IdApi")
+                        .HasColumnType("integer")
+                        .HasColumnName("id_api");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .IsUnicode(true)
                         .HasColumnType("character varying(255)")
                         .HasColumnName("name");
 
@@ -77,7 +82,76 @@ namespace MovBooks.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Name")
+                        .IsUnique();
+
                     b.ToTable("gender", "config");
+                });
+
+            modelBuilder.Entity("MovBooks.Core.Entities.GenderBooks", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<int>("IdBook")
+                        .HasColumnType("integer")
+                        .HasColumnName("book_id");
+
+                    b.Property<int>("IdGender")
+                        .HasColumnType("integer")
+                        .HasColumnName("gender_id");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("updated_at");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdBook");
+
+                    b.HasIndex("IdGender");
+
+                    b.ToTable("gender_books", "books");
+                });
+
+            modelBuilder.Entity("MovBooks.Core.Entities.GenderMovies", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<int>("IdGender")
+                        .HasColumnType("integer")
+                        .HasColumnName("gender_id");
+
+                    b.Property<int>("IdMovie")
+                        .HasColumnType("integer")
+                        .HasColumnName("movie_id");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("updated_at");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdGender");
+
+                    b.HasIndex("IdMovie");
+
+                    b.ToTable("gender_movies", "movies");
                 });
 
             modelBuilder.Entity("MovBooks.Core.Entities.Movie", b =>
@@ -111,6 +185,8 @@ namespace MovBooks.Infrastructure.Migrations
                         .HasColumnName("updated_at");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Title");
 
                     b.ToTable("movies", "movies");
                 });
@@ -339,16 +415,16 @@ namespace MovBooks.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2022, 8, 10, 22, 31, 30, 963, DateTimeKind.Local).AddTicks(5597),
+                            CreatedAt = new DateTime(2023, 4, 5, 23, 39, 31, 850, DateTimeKind.Local).AddTicks(4565),
                             Name = "Admin",
-                            UpdatedAt = new DateTime(2022, 8, 10, 22, 31, 30, 963, DateTimeKind.Local).AddTicks(6844)
+                            UpdatedAt = new DateTime(2023, 4, 5, 23, 39, 31, 850, DateTimeKind.Local).AddTicks(4838)
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2022, 8, 10, 22, 31, 30, 964, DateTimeKind.Local).AddTicks(4584),
+                            CreatedAt = new DateTime(2023, 4, 5, 23, 39, 31, 850, DateTimeKind.Local).AddTicks(9617),
                             Name = "User",
-                            UpdatedAt = new DateTime(2022, 8, 10, 22, 31, 30, 964, DateTimeKind.Local).AddTicks(4602)
+                            UpdatedAt = new DateTime(2023, 4, 5, 23, 39, 31, 850, DateTimeKind.Local).AddTicks(9620)
                         });
                 });
 
@@ -408,6 +484,10 @@ namespace MovBooks.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Email");
+
+                    b.HasIndex("Nickname");
+
                     b.HasIndex("RoleId");
 
                     b.ToTable("users", "users");
@@ -416,14 +496,14 @@ namespace MovBooks.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2022, 8, 10, 22, 31, 30, 964, DateTimeKind.Local).AddTicks(7802),
+                            CreatedAt = new DateTime(2023, 4, 5, 23, 39, 31, 851, DateTimeKind.Local).AddTicks(3325),
                             Email = "admin@movbooks.com",
                             Enabled = true,
                             Nickname = "AdminMovbooks",
                             Password = "12345678",
-                            RegistrationDate = new DateTime(2022, 8, 10, 22, 31, 30, 964, DateTimeKind.Local).AddTicks(6039),
+                            RegistrationDate = new DateTime(2023, 4, 5, 23, 39, 31, 851, DateTimeKind.Local).AddTicks(1613),
                             RoleId = 1,
-                            UpdatedAt = new DateTime(2022, 8, 10, 22, 31, 30, 964, DateTimeKind.Local).AddTicks(7806)
+                            UpdatedAt = new DateTime(2023, 4, 5, 23, 39, 31, 851, DateTimeKind.Local).AddTicks(3327)
                         });
                 });
 
@@ -435,6 +515,10 @@ namespace MovBooks.Infrastructure.Migrations
                         .HasColumnName("id")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+                    b.Property<int>("BookId")
+                        .HasColumnType("integer")
+                        .HasColumnName("book_id");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("created_at");
@@ -443,7 +527,19 @@ namespace MovBooks.Infrastructure.Migrations
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("updated_at");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer")
+                        .HasColumnName("user_id");
+
+                    b.Property<long>("Views")
+                        .HasColumnType("bigint")
+                        .HasColumnName("quantity_views");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("BookId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("views", "books");
                 });
@@ -460,13 +556,72 @@ namespace MovBooks.Infrastructure.Migrations
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("created_at");
 
+                    b.Property<int>("MovieId")
+                        .HasColumnType("integer")
+                        .HasColumnName("movie_id");
+
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("updated_at");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer")
+                        .HasColumnName("user_id");
+
+                    b.Property<long>("Views")
+                        .HasColumnType("bigint")
+                        .HasColumnName("quantity_views");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("MovieId");
+
+                    b.HasIndex("UserId")
+                        .HasDatabaseName("IX_views_user_id1");
+
                     b.ToTable("views", "movies");
+                });
+
+            modelBuilder.Entity("MovBooks.Core.Entities.GenderBooks", b =>
+                {
+                    b.HasOne("MovBooks.Core.Entities.Book", "Book")
+                        .WithMany("GenderBooks")
+                        .HasForeignKey("IdBook")
+                        .HasConstraintName("fk_gender_books_book_id")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.HasOne("MovBooks.Core.Entities.Gender", "Gender")
+                        .WithMany("GenderBooks")
+                        .HasForeignKey("IdGender")
+                        .HasConstraintName("fk_gender_books_gender_id")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.Navigation("Book");
+
+                    b.Navigation("Gender");
+                });
+
+            modelBuilder.Entity("MovBooks.Core.Entities.GenderMovies", b =>
+                {
+                    b.HasOne("MovBooks.Core.Entities.Gender", "Gender")
+                        .WithMany("GenderMovies")
+                        .HasForeignKey("IdGender")
+                        .HasConstraintName("fk_gender_movies_gender_id")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.HasOne("MovBooks.Core.Entities.Movie", "Movie")
+                        .WithMany("GenderMovies")
+                        .HasForeignKey("IdMovie")
+                        .HasConstraintName("fk_gender_movies_movie_id")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.Navigation("Gender");
+
+                    b.Navigation("Movie");
                 });
 
             modelBuilder.Entity("MovBooks.Core.Entities.Pqr", b =>
@@ -534,14 +689,71 @@ namespace MovBooks.Infrastructure.Migrations
                     b.Navigation("Role");
                 });
 
+            modelBuilder.Entity("MovBooks.Core.Entities.ViewsBooks", b =>
+                {
+                    b.HasOne("MovBooks.Core.Entities.Book", "Book")
+                        .WithMany("ViewsBooks")
+                        .HasForeignKey("BookId")
+                        .HasConstraintName("fk_book_view_books")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.HasOne("MovBooks.Core.Entities.User", "User")
+                        .WithMany("ViewsBooks")
+                        .HasForeignKey("UserId")
+                        .HasConstraintName("fk_users_view_books")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.Navigation("Book");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("MovBooks.Core.Entities.ViewsMovies", b =>
+                {
+                    b.HasOne("MovBooks.Core.Entities.Movie", "Movie")
+                        .WithMany("ViewMovies")
+                        .HasForeignKey("MovieId")
+                        .HasConstraintName("fk_movie_view_movies")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.HasOne("MovBooks.Core.Entities.User", "User")
+                        .WithMany("ViewsMovies")
+                        .HasForeignKey("UserId")
+                        .HasConstraintName("fk_users_view_movies")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.Navigation("Movie");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("MovBooks.Core.Entities.Book", b =>
                 {
+                    b.Navigation("GenderBooks");
+
                     b.Navigation("RatingsBooks");
+
+                    b.Navigation("ViewsBooks");
+                });
+
+            modelBuilder.Entity("MovBooks.Core.Entities.Gender", b =>
+                {
+                    b.Navigation("GenderBooks");
+
+                    b.Navigation("GenderMovies");
                 });
 
             modelBuilder.Entity("MovBooks.Core.Entities.Movie", b =>
                 {
+                    b.Navigation("GenderMovies");
+
                     b.Navigation("RatingsMovies");
+
+                    b.Navigation("ViewMovies");
                 });
 
             modelBuilder.Entity("MovBooks.Core.Entities.Role", b =>
@@ -556,6 +768,10 @@ namespace MovBooks.Infrastructure.Migrations
                     b.Navigation("RatingsBooks");
 
                     b.Navigation("RatingsMovies");
+
+                    b.Navigation("ViewsBooks");
+
+                    b.Navigation("ViewsMovies");
                 });
 #pragma warning restore 612, 618
         }

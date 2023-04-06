@@ -413,16 +413,16 @@ namespace MovBooks.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2022, 9, 19, 11, 56, 45, 928, DateTimeKind.Local).AddTicks(6955),
+                            CreatedAt = new DateTime(2023, 4, 5, 23, 39, 31, 850, DateTimeKind.Local).AddTicks(4565),
                             Name = "Admin",
-                            UpdatedAt = new DateTime(2022, 9, 19, 11, 56, 45, 928, DateTimeKind.Local).AddTicks(8307)
+                            UpdatedAt = new DateTime(2023, 4, 5, 23, 39, 31, 850, DateTimeKind.Local).AddTicks(4838)
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2022, 9, 19, 11, 56, 45, 929, DateTimeKind.Local).AddTicks(5979),
+                            CreatedAt = new DateTime(2023, 4, 5, 23, 39, 31, 850, DateTimeKind.Local).AddTicks(9617),
                             Name = "User",
-                            UpdatedAt = new DateTime(2022, 9, 19, 11, 56, 45, 929, DateTimeKind.Local).AddTicks(5992)
+                            UpdatedAt = new DateTime(2023, 4, 5, 23, 39, 31, 850, DateTimeKind.Local).AddTicks(9620)
                         });
                 });
 
@@ -494,14 +494,14 @@ namespace MovBooks.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2022, 9, 19, 11, 56, 45, 929, DateTimeKind.Local).AddTicks(9917),
+                            CreatedAt = new DateTime(2023, 4, 5, 23, 39, 31, 851, DateTimeKind.Local).AddTicks(3325),
                             Email = "admin@movbooks.com",
                             Enabled = true,
                             Nickname = "AdminMovbooks",
                             Password = "12345678",
-                            RegistrationDate = new DateTime(2022, 9, 19, 11, 56, 45, 929, DateTimeKind.Local).AddTicks(7915),
+                            RegistrationDate = new DateTime(2023, 4, 5, 23, 39, 31, 851, DateTimeKind.Local).AddTicks(1613),
                             RoleId = 1,
-                            UpdatedAt = new DateTime(2022, 9, 19, 11, 56, 45, 929, DateTimeKind.Local).AddTicks(9920)
+                            UpdatedAt = new DateTime(2023, 4, 5, 23, 39, 31, 851, DateTimeKind.Local).AddTicks(3327)
                         });
                 });
 

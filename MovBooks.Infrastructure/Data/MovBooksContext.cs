@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
 using MovBooks.Core.Entities;
 using System;
 using System.Data;
@@ -15,7 +14,6 @@ namespace MovBooks.Infrastructure.Data
             : base(options)
         {
         }
-
 
         //Users
         public virtual DbSet<Role> Roles { get; set; }
@@ -36,6 +34,9 @@ namespace MovBooks.Infrastructure.Data
         public virtual DbSet<Pqr> Pqrs { get; set; }
         public virtual DbSet<Parameter> Parameters { get; set; }
 
+        /**
+         * Seeds
+         */
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
@@ -47,20 +48,6 @@ namespace MovBooks.Infrastructure.Data
                new Role { Id = 2, Name = "User", CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now });
             modelBuilder.Entity<User>().HasData(
               new User { Id = 1, Email = "admin@movbooks.com", Password = "12345678", Nickname = "AdminMovbooks", RoleId = 1, Enabled = true, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now });
-        }
-
-        /**
-         *  To Migrate Data
-         */
-        public class MovBooksContextFactory : IDesignTimeDbContextFactory<MovBooksContext>
-        {
-            public MovBooksContext CreateDbContext(string[] args)
-            {
-                var optionsBuilder = new DbContextOptionsBuilder<MovBooksContext>();
-                optionsBuilder.UseNpgsql("Server=localhost; User Id=postgres; Password=postgres123; Port=5432; Database=movbooks;");
-                return new MovBooksContext(optionsBuilder.Options);
-            }
-
         }
 
 

@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace MovBooks.Infrastructure.Migrations
 {
-    public partial class AddEntities : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -45,6 +45,7 @@ namespace MovBooks.Infrastructure.Migrations
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     name = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
+                    id_api = table.Column<int>(type: "integer", nullable: true),
                     created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
@@ -122,33 +123,65 @@ namespace MovBooks.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "views",
+                name: "gender_books",
                 schema: "books",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    gender_id = table.Column<int>(type: "integer", nullable: false),
+                    book_id = table.Column<int>(type: "integer", nullable: false),
                     created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_views", x => x.id);
+                    table.PrimaryKey("PK_gender_books", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_gender_books_book_id",
+                        column: x => x.book_id,
+                        principalSchema: "books",
+                        principalTable: "books",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "fk_gender_books_gender_id",
+                        column: x => x.gender_id,
+                        principalSchema: "config",
+                        principalTable: "gender",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "views",
+                name: "gender_movies",
                 schema: "movies",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    gender_id = table.Column<int>(type: "integer", nullable: false),
+                    movie_id = table.Column<int>(type: "integer", nullable: false),
                     created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_views", x => x.id);
+                    table.PrimaryKey("PK_gender_movies", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_gender_movies_gender_id",
+                        column: x => x.gender_id,
+                        principalSchema: "config",
+                        principalTable: "gender",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "fk_gender_movies_movie_id",
+                        column: x => x.movie_id,
+                        principalSchema: "movies",
+                        principalTable: "movies",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -274,21 +307,128 @@ namespace MovBooks.Infrastructure.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "views",
+                schema: "books",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    user_id = table.Column<int>(type: "integer", nullable: false),
+                    book_id = table.Column<int>(type: "integer", nullable: false),
+                    quantity_views = table.Column<long>(type: "bigint", nullable: false),
+                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_views", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_book_view_books",
+                        column: x => x.book_id,
+                        principalSchema: "books",
+                        principalTable: "books",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "fk_users_view_books",
+                        column: x => x.user_id,
+                        principalSchema: "users",
+                        principalTable: "users",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "views",
+                schema: "movies",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    user_id = table.Column<int>(type: "integer", nullable: false),
+                    movie_id = table.Column<int>(type: "integer", nullable: false),
+                    quantity_views = table.Column<long>(type: "bigint", nullable: false),
+                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_views", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_movie_view_movies",
+                        column: x => x.movie_id,
+                        principalSchema: "movies",
+                        principalTable: "movies",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "fk_users_view_movies",
+                        column: x => x.user_id,
+                        principalSchema: "users",
+                        principalTable: "users",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.InsertData(
                 schema: "users",
                 table: "roles",
                 columns: new[] { "id", "created_at", "name", "updated_at" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2022, 8, 10, 22, 31, 30, 963, DateTimeKind.Local).AddTicks(5597), "Admin", new DateTime(2022, 8, 10, 22, 31, 30, 963, DateTimeKind.Local).AddTicks(6844) },
-                    { 2, new DateTime(2022, 8, 10, 22, 31, 30, 964, DateTimeKind.Local).AddTicks(4584), "User", new DateTime(2022, 8, 10, 22, 31, 30, 964, DateTimeKind.Local).AddTicks(4602) }
+                    { 1, new DateTime(2023, 4, 5, 23, 39, 31, 850, DateTimeKind.Local).AddTicks(4565), "Admin", new DateTime(2023, 4, 5, 23, 39, 31, 850, DateTimeKind.Local).AddTicks(4838) },
+                    { 2, new DateTime(2023, 4, 5, 23, 39, 31, 850, DateTimeKind.Local).AddTicks(9617), "User", new DateTime(2023, 4, 5, 23, 39, 31, 850, DateTimeKind.Local).AddTicks(9620) }
                 });
 
             migrationBuilder.InsertData(
                 schema: "users",
                 table: "users",
                 columns: new[] { "id", "avatar", "created_at", "email", "enabled", "image", "nickname", "password", "registration_date", "role_id", "updated_at" },
-                values: new object[] { 1, null, new DateTime(2022, 8, 10, 22, 31, 30, 964, DateTimeKind.Local).AddTicks(7802), "admin@movbooks.com", true, null, "AdminMovbooks", "12345678", new DateTime(2022, 8, 10, 22, 31, 30, 964, DateTimeKind.Local).AddTicks(6039), 1, new DateTime(2022, 8, 10, 22, 31, 30, 964, DateTimeKind.Local).AddTicks(7806) });
+                values: new object[] { 1, null, new DateTime(2023, 4, 5, 23, 39, 31, 851, DateTimeKind.Local).AddTicks(3325), "admin@movbooks.com", true, null, "AdminMovbooks", "12345678", new DateTime(2023, 4, 5, 23, 39, 31, 851, DateTimeKind.Local).AddTicks(1613), 1, new DateTime(2023, 4, 5, 23, 39, 31, 851, DateTimeKind.Local).AddTicks(3327) });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_books_title",
+                schema: "books",
+                table: "books",
+                column: "title");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_gender_name",
+                schema: "config",
+                table: "gender",
+                column: "name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_gender_books_book_id",
+                schema: "books",
+                table: "gender_books",
+                column: "book_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_gender_books_gender_id",
+                schema: "books",
+                table: "gender_books",
+                column: "gender_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_gender_movies_gender_id",
+                schema: "movies",
+                table: "gender_movies",
+                column: "gender_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_gender_movies_movie_id",
+                schema: "movies",
+                table: "gender_movies",
+                column: "movie_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_movies_title",
+                schema: "movies",
+                table: "movies",
+                column: "title");
 
             migrationBuilder.CreateIndex(
                 name: "IX_pqrs_user_id",
@@ -321,17 +461,57 @@ namespace MovBooks.Infrastructure.Migrations
                 column: "user_id");
 
             migrationBuilder.CreateIndex(
+                name: "IX_users_email",
+                schema: "users",
+                table: "users",
+                column: "email");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_users_nickname",
+                schema: "users",
+                table: "users",
+                column: "nickname");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_users_role_id",
                 schema: "users",
                 table: "users",
                 column: "role_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_views_book_id",
+                schema: "books",
+                table: "views",
+                column: "book_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_views_user_id",
+                schema: "books",
+                table: "views",
+                column: "user_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_views_movie_id",
+                schema: "movies",
+                table: "views",
+                column: "movie_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_views_user_id1",
+                schema: "movies",
+                table: "views",
+                column: "user_id");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "gender",
-                schema: "config");
+                name: "gender_books",
+                schema: "books");
+
+            migrationBuilder.DropTable(
+                name: "gender_movies",
+                schema: "movies");
 
             migrationBuilder.DropTable(
                 name: "parameters",
@@ -360,6 +540,10 @@ namespace MovBooks.Infrastructure.Migrations
             migrationBuilder.DropTable(
                 name: "views",
                 schema: "movies");
+
+            migrationBuilder.DropTable(
+                name: "gender",
+                schema: "config");
 
             migrationBuilder.DropTable(
                 name: "books",
