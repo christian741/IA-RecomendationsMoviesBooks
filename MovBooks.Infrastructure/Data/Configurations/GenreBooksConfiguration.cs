@@ -1,24 +1,21 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MovBooks.Core.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace MovBooks.Infrastructure.Data.Configurations
 {
-    public class GenderBooksConfiguration : IEntityTypeConfiguration<GenderBooks>
+    public class GenreBooksConfiguration : IEntityTypeConfiguration<GenreBooks>
     {
-        public void Configure(EntityTypeBuilder<GenderBooks> builder)
+        public void Configure(EntityTypeBuilder<GenreBooks> builder)
         {
-            builder.ToTable("gender_books","books");
-            
+            builder.ToTable("genre_books", "books");
+
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
                 .HasColumnName("id");
 
-            builder.Property(x => x.IdGender)
-                .HasColumnName("gender_id")
+            builder.Property(x => x.IdGenre)
+                .HasColumnName("genre_id")
                 .IsRequired();
 
             builder.Property(x => x.IdBook)
@@ -32,16 +29,16 @@ namespace MovBooks.Infrastructure.Data.Configurations
                 .HasColumnName("updated_at");
 
             // Relationship
-            builder.HasOne(x => x.Gender)
-                .WithMany(z => z.GenderBooks)
-                .HasForeignKey(x => x.IdGender)
-                .HasConstraintName("fk_gender_books_gender_id")
+            builder.HasOne(x => x.Genre)
+                .WithMany(z => z.GenreBooks)
+                .HasForeignKey(x => x.IdGenre)
+                .HasConstraintName("fk_genre_books_Genre_id")
                 .OnDelete(DeleteBehavior.ClientCascade);
 
             builder.HasOne(x => x.Book)
-                .WithMany(z => z.GenderBooks)
+                .WithMany(z => z.GenreBooks)
                 .HasForeignKey(x => x.IdBook)
-                .HasConstraintName("fk_gender_books_book_id")
+                .HasConstraintName("fk_genre_books_book_id")
                 .OnDelete(DeleteBehavior.ClientCascade);
         }
     }

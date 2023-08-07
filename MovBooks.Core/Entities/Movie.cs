@@ -7,7 +7,7 @@ namespace MovBooks.Core.Entities
         public Movie()
         {
             RatingsMovies = new HashSet<RatingMovie>();
-            GenderMovies = new HashSet<GenderMovies>();
+            GenreMovies = new HashSet<GenreMovies>();
             ViewMovies = new HashSet<ViewsMovies>();
         }
 
@@ -15,7 +15,7 @@ namespace MovBooks.Core.Entities
         public string Description { get; set; }
         public bool Aggregated { get; set; }
 
-        public virtual ICollection<GenderMovies> GenderMovies { get; set; }  
+        public virtual ICollection<GenreMovies> GenreMovies { get; set; }
         public virtual ICollection<RatingMovie> RatingsMovies { get; set; }
         public virtual ICollection<ViewsMovies> ViewMovies { get; set; }
     }

@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MovBooks.Infrastructure.Migrations
 {
     [DbContext(typeof(MovBooksContext))]
-    [Migration("20230406043932_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20230807043318_initDataBase")]
+    partial class initDataBase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -54,7 +54,7 @@ namespace MovBooks.Infrastructure.Migrations
                     b.ToTable("books", "books");
                 });
 
-            modelBuilder.Entity("MovBooks.Core.Entities.Gender", b =>
+            modelBuilder.Entity("MovBooks.Core.Entities.Genre", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -88,7 +88,7 @@ namespace MovBooks.Infrastructure.Migrations
                     b.ToTable("gender", "config");
                 });
 
-            modelBuilder.Entity("MovBooks.Core.Entities.GenderBooks", b =>
+            modelBuilder.Entity("MovBooks.Core.Entities.GenreBooks", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -104,9 +104,9 @@ namespace MovBooks.Infrastructure.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("book_id");
 
-                    b.Property<int>("IdGender")
+                    b.Property<int>("IdGenre")
                         .HasColumnType("integer")
-                        .HasColumnName("gender_id");
+                        .HasColumnName("genre_id");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp without time zone")
@@ -116,12 +116,12 @@ namespace MovBooks.Infrastructure.Migrations
 
                     b.HasIndex("IdBook");
 
-                    b.HasIndex("IdGender");
+                    b.HasIndex("IdGenre");
 
-                    b.ToTable("gender_books", "books");
+                    b.ToTable("genre_books", "books");
                 });
 
-            modelBuilder.Entity("MovBooks.Core.Entities.GenderMovies", b =>
+            modelBuilder.Entity("MovBooks.Core.Entities.GenreMovies", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -133,9 +133,9 @@ namespace MovBooks.Infrastructure.Migrations
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("created_at");
 
-                    b.Property<int>("IdGender")
+                    b.Property<int>("IdGenre")
                         .HasColumnType("integer")
-                        .HasColumnName("gender_id");
+                        .HasColumnName("genre_id");
 
                     b.Property<int>("IdMovie")
                         .HasColumnType("integer")
@@ -147,11 +147,11 @@ namespace MovBooks.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdGender");
+                    b.HasIndex("IdGenre");
 
                     b.HasIndex("IdMovie");
 
-                    b.ToTable("gender_movies", "movies");
+                    b.ToTable("genre_movies", "movies");
                 });
 
             modelBuilder.Entity("MovBooks.Core.Entities.Movie", b =>
@@ -415,16 +415,16 @@ namespace MovBooks.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2023, 4, 5, 23, 39, 31, 850, DateTimeKind.Local).AddTicks(4565),
+                            CreatedAt = new DateTime(2023, 8, 6, 23, 33, 18, 160, DateTimeKind.Local).AddTicks(3895),
                             Name = "Admin",
-                            UpdatedAt = new DateTime(2023, 4, 5, 23, 39, 31, 850, DateTimeKind.Local).AddTicks(4838)
+                            UpdatedAt = new DateTime(2023, 8, 6, 23, 33, 18, 160, DateTimeKind.Local).AddTicks(4092)
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2023, 4, 5, 23, 39, 31, 850, DateTimeKind.Local).AddTicks(9617),
+                            CreatedAt = new DateTime(2023, 8, 6, 23, 33, 18, 160, DateTimeKind.Local).AddTicks(8654),
                             Name = "User",
-                            UpdatedAt = new DateTime(2023, 4, 5, 23, 39, 31, 850, DateTimeKind.Local).AddTicks(9620)
+                            UpdatedAt = new DateTime(2023, 8, 6, 23, 33, 18, 160, DateTimeKind.Local).AddTicks(8657)
                         });
                 });
 
@@ -496,14 +496,14 @@ namespace MovBooks.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2023, 4, 5, 23, 39, 31, 851, DateTimeKind.Local).AddTicks(3325),
+                            CreatedAt = new DateTime(2023, 8, 6, 23, 33, 18, 161, DateTimeKind.Local).AddTicks(1815),
                             Email = "admin@movbooks.com",
                             Enabled = true,
                             Nickname = "AdminMovbooks",
                             Password = "12345678",
-                            RegistrationDate = new DateTime(2023, 4, 5, 23, 39, 31, 851, DateTimeKind.Local).AddTicks(1613),
+                            RegistrationDate = new DateTime(2023, 8, 6, 23, 33, 18, 161, DateTimeKind.Local).AddTicks(282),
                             RoleId = 1,
-                            UpdatedAt = new DateTime(2023, 4, 5, 23, 39, 31, 851, DateTimeKind.Local).AddTicks(3327)
+                            UpdatedAt = new DateTime(2023, 8, 6, 23, 33, 18, 161, DateTimeKind.Local).AddTicks(1817)
                         });
                 });
 
@@ -582,44 +582,44 @@ namespace MovBooks.Infrastructure.Migrations
                     b.ToTable("views", "movies");
                 });
 
-            modelBuilder.Entity("MovBooks.Core.Entities.GenderBooks", b =>
+            modelBuilder.Entity("MovBooks.Core.Entities.GenreBooks", b =>
                 {
                     b.HasOne("MovBooks.Core.Entities.Book", "Book")
-                        .WithMany("GenderBooks")
+                        .WithMany("GenreBooks")
                         .HasForeignKey("IdBook")
-                        .HasConstraintName("fk_gender_books_book_id")
+                        .HasConstraintName("fk_genre_books_book_id")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
-                    b.HasOne("MovBooks.Core.Entities.Gender", "Gender")
-                        .WithMany("GenderBooks")
-                        .HasForeignKey("IdGender")
-                        .HasConstraintName("fk_gender_books_gender_id")
+                    b.HasOne("MovBooks.Core.Entities.Genre", "Genre")
+                        .WithMany("GenreBooks")
+                        .HasForeignKey("IdGenre")
+                        .HasConstraintName("fk_genre_books_Genre_id")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
                     b.Navigation("Book");
 
-                    b.Navigation("Gender");
+                    b.Navigation("Genre");
                 });
 
-            modelBuilder.Entity("MovBooks.Core.Entities.GenderMovies", b =>
+            modelBuilder.Entity("MovBooks.Core.Entities.GenreMovies", b =>
                 {
-                    b.HasOne("MovBooks.Core.Entities.Gender", "Gender")
-                        .WithMany("GenderMovies")
-                        .HasForeignKey("IdGender")
-                        .HasConstraintName("fk_gender_movies_gender_id")
+                    b.HasOne("MovBooks.Core.Entities.Genre", "Genre")
+                        .WithMany("GenreMovies")
+                        .HasForeignKey("IdGenre")
+                        .HasConstraintName("fk_genre_movies_Genre_id")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
                     b.HasOne("MovBooks.Core.Entities.Movie", "Movie")
-                        .WithMany("GenderMovies")
+                        .WithMany("GenreMovies")
                         .HasForeignKey("IdMovie")
-                        .HasConstraintName("fk_gender_movies_movie_id")
+                        .HasConstraintName("fk_genre_movies_movie_id")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
-                    b.Navigation("Gender");
+                    b.Navigation("Genre");
 
                     b.Navigation("Movie");
                 });
@@ -733,23 +733,23 @@ namespace MovBooks.Infrastructure.Migrations
 
             modelBuilder.Entity("MovBooks.Core.Entities.Book", b =>
                 {
-                    b.Navigation("GenderBooks");
+                    b.Navigation("GenreBooks");
 
                     b.Navigation("RatingsBooks");
 
                     b.Navigation("ViewsBooks");
                 });
 
-            modelBuilder.Entity("MovBooks.Core.Entities.Gender", b =>
+            modelBuilder.Entity("MovBooks.Core.Entities.Genre", b =>
                 {
-                    b.Navigation("GenderBooks");
+                    b.Navigation("GenreBooks");
 
-                    b.Navigation("GenderMovies");
+                    b.Navigation("GenreMovies");
                 });
 
             modelBuilder.Entity("MovBooks.Core.Entities.Movie", b =>
                 {
-                    b.Navigation("GenderMovies");
+                    b.Navigation("GenreMovies");
 
                     b.Navigation("RatingsMovies");
 

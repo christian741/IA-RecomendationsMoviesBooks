@@ -60,7 +60,7 @@ namespace MovBooks.Infrastructure.Extensions
             // Servicios Core
             services.AddTransient<IPqrService, PqrService>();
             services.AddTransient<IBookService, BookService>();
-            services.AddTransient<IGenderService, GenderService>();
+            services.AddTransient<IGenreService, GenreService>();
             services.AddTransient<IRoleService, RoleService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IMovieService, MovieService>();
