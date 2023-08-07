@@ -51,7 +51,7 @@ namespace MovBooks.Infrastructure.Services
                                 
                                 if(nameGender == null)
                                 {
-                                    var gender = new Gender()
+                                    var gender = new Genre()
                                     {
                                         Name = name,
                                         IdApi = id,

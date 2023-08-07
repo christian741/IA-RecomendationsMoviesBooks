@@ -8,7 +8,7 @@ namespace MovBooks.Infrastructure.Mappings
     {
         public AutomapperProfile()
         {
-           
+
             //Users
             CreateMap<Role, RoleDto>().ReverseMap();
             CreateMap<User, UserDto>().ReverseMap();
@@ -24,7 +24,7 @@ namespace MovBooks.Infrastructure.Mappings
 
 
             //Configuration
-            CreateMap<Gender, GenderDto>().ReverseMap();
+            CreateMap<Genre, GenreDto>().ReverseMap();
             CreateMap<Parameter, ParameterDto>().ReverseMap();
             CreateMap<Pqr, PqrDto>().ReverseMap();
         }

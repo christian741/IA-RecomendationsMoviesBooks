@@ -30,7 +30,7 @@ namespace MovBooks.Infrastructure.Data
         public virtual DbSet<RatingBook> RatingsBooks { get; set; }
 
         //Configuration
-        public virtual DbSet<Gender> Genders { get; set; }
+        public virtual DbSet<Genre> Genders { get; set; }
         public virtual DbSet<Pqr> Pqrs { get; set; }
         public virtual DbSet<Parameter> Parameters { get; set; }
 

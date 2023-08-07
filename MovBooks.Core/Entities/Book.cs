@@ -7,14 +7,14 @@ namespace MovBooks.Core.Entities
         public Book()
         {
             RatingsBooks = new HashSet<RatingBook>();
-            GenderBooks = new HashSet<GenderBooks>();
+            GenreBooks = new HashSet<GenreBooks>();
             ViewsBooks = new HashSet<ViewsBooks>();
         }
 
         public string Title { get; set; }
         public string Description { get; set; }
 
-        public virtual ICollection<GenderBooks> GenderBooks { get; set; }
+        public virtual ICollection<GenreBooks> GenreBooks { get; set; }
         public virtual ICollection<RatingBook> RatingsBooks { get; set; }
         public virtual ICollection<ViewsBooks> ViewsBooks { get; set; }
     }
